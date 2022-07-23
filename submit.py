@@ -8,7 +8,7 @@ import sqlite3
 
 import pandas as pd
 
-team_name = ""  # NSML ID 넣는 곳
+nsml_name = ""  # NSML ID 넣는 곳
 data_name = ""  # 데이터 셋
 start_wait_sec = 3600  # 시작할때 까지 대기 시간
 submit_list_path = './submit.csv'
@@ -63,8 +63,8 @@ if __name__ == "__main__":
     for i in range(s_df.shape[0]):
         s = s_df.session[i]
         m = s_df.model[i]
-        full_session = '/'.join([team_name, data_name, str(s)])
-        full_command = f"nsml submit {full_session} {m} --esm {team_name}"
+        full_session = '/'.join([nsml_name, data_name, str(s)])
+        full_command = f"nsml submit {full_session} {m} --esm {nsml_name}"
         li_procs.append(Process(target=run_submit, args=(full_command, s, m)))
 
     now = time.time()

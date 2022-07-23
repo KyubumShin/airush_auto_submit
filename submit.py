@@ -1,17 +1,17 @@
 import re
+import sqlite3
 import subprocess
 import time
-from ctypes import c_double
 from datetime import datetime
-from multiprocessing import Process, Array
-import sqlite3
+from multiprocessing import Process
 
 import pandas as pd
+import argparse
 
 nsml_name = ""  # NSML ID 넣는 곳
 data_name = ""  # 데이터 셋
-start_wait_sec = 3600  # 시작할때 까지 대기 시간
 submit_list_path = './submit.csv'
+S_HOUR = 3601
 
 
 def insert_data(session, model, score):
@@ -56,7 +56,10 @@ def check_db():
 
 
 if __name__ == "__main__":
-    S_HOUR = 3601
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-wt", type=int, default=0)
+    args = parser.parse_args()
+
     li_procs = []
     s_df = pd.read_csv(submit_list_path)
     check_db()
@@ -68,7 +71,7 @@ if __name__ == "__main__":
         li_procs.append(Process(target=run_submit, args=(full_command, s, m)))
 
     now = time.time()
-    time.sleep(start_wait_sec)
+    time.sleep(args.wt)
 
     for i, proc in enumerate(li_procs):
         proc.start()

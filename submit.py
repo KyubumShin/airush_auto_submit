@@ -8,8 +8,8 @@ from multiprocessing import Process
 import pandas as pd
 import argparse
 
-nsml_name = ""  # NSML ID 넣는 곳
-data_name = ""  # 데이터 셋
+nsml_name = "KR96342"  # NSML ID 넣는 곳
+data_name = "airush2022-1-3"  # 데이터 셋
 submit_list_path = './submit.csv'
 S_HOUR = 3601
 
@@ -58,6 +58,7 @@ def check_db():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-wt", type=int, default=0)
+    parser.add_argument("-e", type=str, default=None)
     args = parser.parse_args()
 
     li_procs = []
@@ -67,7 +68,10 @@ if __name__ == "__main__":
         s = s_df.session[i]
         m = s_df.model[i]
         full_session = '/'.join([nsml_name, data_name, str(s)])
-        full_command = f"nsml submit {full_session} {m} --esm {nsml_name}"
+        if not args.e:
+            full_command = f"nsml submit {full_session} {m} --esm {nsml_name}"
+        else:
+            full_command = f"nsml submit {full_session} {m} --esm {nsml_name} -e {args.e}"
         li_procs.append(Process(target=run_submit, args=(full_command, s, m)))
 
     now = time.time()

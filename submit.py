@@ -64,6 +64,8 @@ if __name__ == "__main__":
     li_procs = []
     s_df = pd.read_csv(submit_list_path)
     check_db()
+    print("submit list:")
+    print(s_df)
     for i in range(s_df.shape[0]):
         s = s_df.session[i]
         m = s_df.model[i]

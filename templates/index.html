@@ -1,0 +1,111 @@
+<html>
+<head>
+    <title>Submit</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script language='javascript'>
+        $(document).ready(function () {
+            $('.ui.accordion').accordion();
+        });
+    </script>
+</head>
+<body>
+<h1 class="ui center aligned header">Session List</h1>
+<div class="ui container">
+    <form class="ui form" action="/memo" , method="post">
+        <div class="ui accordion field">
+            <div class="title">
+                <i class="icon dropdown"></i>
+                Add Session Memo
+            </div>
+            <div class="content fields">
+                <div class="two fields">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Dataset</label>
+                            <select class="ui fluid search dropdown" name="dataset" maxlength="50"
+                                    placeholder="Dataset name">
+                                <option value="airush2022-2-1a">airush2022-2-1a</option>
+                                <option value="airush2022-2-2">airush2022-2-2</option>
+                                <option value="airush2022-2-3">airush2022-2-4</option>
+                                <option value="airush2022-2-4">airush2022-2-5</option>
+                                <option value="airush2022-2-5">airush2022-2-6</option>
+                                <option value="airush2022-2-6">airush2022-2-7</option>
+                                <option value="airush2022-2-7">airush2022-2-8</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Session ID</label>
+                            <input type="text" name="session_id" maxlength="5" placeholder="Session ID">
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <label>Model</label>
+                        <input type="text" name="model" maxlength="50" placeholder="Model name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>description</label>
+                    <textarea name="desc" maxlength="200" placeholder="Description"></textarea>
+                </div>
+
+                <div class="field">
+                    <div class="ui right aligned container">
+                        <button class="ui right labeled icon button" type="submit">
+                            <i class="right arrow icon"></i>
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="ui container">
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Dataset</th>
+            <th>Session</th>
+            <th>Model</th>
+            <th>Description</th>
+            <th>Score</th>
+            <th>CV</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for session in sessions %}
+        <tr>
+            <td data-label="Dataset">{{ session.dataset }}</a></td>
+            <td data-label="Session"><a href="/session/{{ session.session }}">{{ session.session }}</a></td>
+            <td data-label="Model">{{ session.model }}</td>
+            <td data-label="Description">{{ session.description }}</td>
+            <td data-label="Description">{{ session.score }}</td>
+            <td data-label="Description">{{ session.cv }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+<style>
+    h1.ui.center.header {
+        margin-top: 1em;
+    }
+
+    h2.ui.center.header {
+        margin: 4em 0em 2em;
+    }
+
+    h3.ui.center.header {
+        margin-top: 2em;
+        padding: 2em 0em;
+    }
+</style>
+</html>

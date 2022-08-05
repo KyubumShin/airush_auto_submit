@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Submit</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+<body>
+<h1 class="ui center aligned header">Submit List</h1>
+<div class="ui container">
+    <button class="ui secondary button" onclick="location.href='/';">Back</button>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Session</th>
+            <th>Checkpoint</th>
+            <th>Score</th>
+            <th>CV</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for session in sessions %}
+        <tr>
+            <td data-label="Session">{{ session.session }}</a></td>
+            <td data-label="checkpoint">{{ session.checkpoint }}</td>
+            <td data-label="Score">{{ session.score }}</td>
+            <td data-label="CV">{{ session.cv }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+<style>
+    h1.ui.center.header {
+        margin-top: 1em;
+    }
+
+    h2.ui.center.header {
+        margin: 4em 0em 2em;
+    }
+
+    h3.ui.center.header {
+        margin-top: 2em;
+        padding: 2em 0em;
+    }
+</style>
+</html>
